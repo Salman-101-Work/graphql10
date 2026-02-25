@@ -54,6 +54,13 @@ function cardNumber(value: number, suffix = "") {
   return `${numberFmt.format(value)}${suffix}`;
 }
 
+function formatMbFromKb(value: number): string {
+  if (typeof value !== "number" || Number.isNaN(value)) {
+    return "0mb";
+  }
+  return `${formatSig(value / 1_000)}mb`;
+}
+
 function formatSig(value: number): string {
   const absValue = Math.abs(value);
   if (absValue >= 100) {
@@ -504,11 +511,11 @@ export function DashboardApp() {
           <div className="tiny-grid">
             <div>
               <p className="stat-label">Done</p>
-              <p className="stat-value">{formatXp(data.totals.totalUpKb)}</p>
+              <p className="stat-value">{formatMbFromKb(data.totals.totalUpKb)}</p>
             </div>
             <div>
               <p className="stat-label">Received</p>
-              <p className="stat-value">{formatXp(data.totals.totalDownKb)}</p>
+              <p className="stat-value">{formatMbFromKb(data.totals.totalDownKb)}</p>
             </div>
           </div>
         </article>
