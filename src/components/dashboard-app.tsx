@@ -74,17 +74,14 @@ function formatSig(value: number): string {
 
 export function formatXp(value: number): string {
   if (typeof value !== "number" || Number.isNaN(value)) {
-    return "0";
+    return "0 KB";
   }
 
   const absValue = Math.abs(value);
-  if (absValue >= 1_000_000) {
-    return `${formatSig(value / 1_000_000)}mb`;
-  }
   if (absValue >= 1_000) {
-    return `${formatSig(value / 1_000)}kb`;
+    return `${formatSig(value / 1_000)} MB`;
   }
-  return Math.round(value).toString();
+  return `${formatSig(value)} KB`;
 }
 
 function toPath(points: Array<[number, number]>) {
